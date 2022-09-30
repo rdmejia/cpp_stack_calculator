@@ -3,16 +3,19 @@
 
 #pragma once
 #include <iostream>
+#include <string.h>
 #include "Stack.h"
 #include "Calculator.h"
 
 int main()
 {
-	char* input = (char*)calloc(256, sizeof(char));
+	string input;
 
 	std::cin >> input;
 
-	int result = Calculator::compute(input);
+	Calculator *calculator = new Calculator();
+
+	double result = calculator->compute(&input);
 	std::cout << input << " = " << result << "\n";
 }
 

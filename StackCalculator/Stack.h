@@ -4,57 +4,60 @@ template <typename T>
 class Stack
 {
 private:
-	struct Node {
-		T value;
-		Node* next;
+    struct Node
+    {
+        T* value;
+        Node* next;
 
-		Node(T value) {
-			this->value = value;
-			this->next = nullptr;
-		}
-	};
+        Node(T* value) {
+            this->value = value;
+            this->next = nullptr;
+        }
+    };
 
-	Node* head;
-	int size;
+    int size;
+    Node* head;
 
 public:
-	Stack() {
-		this->head = nullptr;
-		this->size = 0;
-	}
 
-	int getSize() {
-		return this->size;
-	}
+    Stack() {
+        this->head = nullptr;
+        this->size = 0;
+    }
 
-	void push(T item) {
-		if (this->isEmpty()) {
-			this->head = new Node(item);
-		} else {
-			Node* node = new Node(item);
-			node->next = this->head;
-			this->head = node;
-		}
+    int get_size() {
+        return this->size;
+    }
 
-		this->size++;
-	}
+    bool is_empty() {
+        return this->head == nullptr;
+    }
 
-	T peek() {
-		return this->head->value;
-	}
+    void push(T* item) {
+        Node* node = new Node(item);
+        this->size++;
 
-	T pop() {
-		T item = this->head->value;
+        if (this->is_empty()) {
+            this->head = node;
+            return;
+        }
 
-		this->head = this->head->next;
+        node->next = this->head;
+        this->head = node;
+    }
 
-		this->size--;
+    T* peek() {
+        return this->head->value;
+    }
 
-		return item;
-	}
+    T* pop() {
+        T* item = this->head->value;
 
-	bool isEmpty() {
-		return this->head == nullptr;
-	}
+        this->head = this->head->next;
+
+        this->size--;
+
+        return item;
+    }
 };
 
